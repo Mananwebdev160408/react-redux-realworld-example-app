@@ -9,6 +9,7 @@ import Editor from '../components/Editor';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Profile from '../components/Profile';
+import ProfileBookmarks from './ProfileBookmarks';
 import ProfileFavorites from '../components/ProfileFavorites';
 import Register from '../components/Register';
 import Settings from '../components/Settings';
@@ -60,6 +61,7 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
+            <Route path="/@:username/bookmarks" component={ProfileBookmarks} />
             <Route path="/editor" component={Editor} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />

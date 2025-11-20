@@ -2,8 +2,7 @@ import ArticleActions from './ArticleActions';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-const ArticleMeta = props => {
-  const article = props.article;
+const ArticleMeta = ({ article, canModify, onBookmark }) => {
   return (
     <div className="article-meta">
       <Link to={`/@${article.author.username}`}>
@@ -19,7 +18,21 @@ const ArticleMeta = props => {
         </span>
       </div>
 
-      <ArticleActions canModify={props.canModify} article={article} />
+      {/* --- NEW BOOKMARK BUTTON --- */}
+      <button
+        className={`btn btn-sm ${article.bookmarked ? 'btn-primary' : 'btn-outline-primary'}`}
+        style={{ marginRight: '8px' }}
+        onClick={() => onBookmark(article.slug, article.bookmarked)}
+      >
+        <i className="ion-bookmark"></i>
+        &nbsp;
+        {article.bookmarked ? 'Bookmarked' : 'Bookmark'}
+      </button>
+
+      <ArticleActions
+        canModify={canModify}
+        article={article}
+      />
     </div>
   );
 };

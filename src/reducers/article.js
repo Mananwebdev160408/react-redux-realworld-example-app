@@ -2,7 +2,9 @@ import {
   ARTICLE_PAGE_LOADED,
   ARTICLE_PAGE_UNLOADED,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  ARTICLE_BOOKMARKED,
+  ARTICLE_UNBOOKMARKED
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -13,8 +15,10 @@ export default (state = {}, action) => {
         article: action.payload[0].article,
         comments: action.payload[1].comments
       };
+
     case ARTICLE_PAGE_UNLOADED:
       return {};
+
     case ADD_COMMENT:
       return {
         ...state,
@@ -23,12 +27,35 @@ export default (state = {}, action) => {
           null :
           (state.comments || []).concat([action.payload.comment])
       };
-    case DELETE_COMMENT:
-      const commentId = action.commentId
+
+    case DELETE_COMMENT: {
+      const commentId = action.commentId;
       return {
         ...state,
         comments: state.comments.filter(comment => comment.id !== commentId)
       };
+    }
+
+    // NEW: update single-article bookmarked state
+    case ARTICLE_BOOKMARKED:
+      // action.payload expected to be { article: { ... } }
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          bookmarked: true
+        }
+      };
+
+    case ARTICLE_UNBOOKMARKED:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          bookmarked: false
+        }
+      };
+
     default:
       return state;
   }

@@ -104,6 +104,15 @@ class Profile extends React.Component {
             Favorited Articles
           </Link>
         </li>
+        <li className="nav-item">
+  <a
+    href={`/@${this.props.profile.username}/bookmarks`}
+    className="nav-link"
+    >
+    Bookmarks
+  </a>
+</li>
+
       </ul>
     );
   }
